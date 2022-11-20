@@ -57,7 +57,7 @@
 % Needed to make header & footer effeciently
 \RequirePackage{fancyhdr}
 % Needed to manage colors
-\RequirePackage{xcolor}
+\RequirePackage[dvipsnames]{xcolor}
 % Needed to use \ifxetex-\else-\fi statement
 \RequirePackage{ifxetex}
 % Needed to use \if-\then-\else statement
@@ -130,7 +130,7 @@
 \definecolor{orange}{HTML}{FDA333}
 \definecolor{purple}{HTML}{D3A4F9}
 \definecolor{red}{HTML}{FB4485}
-\definecolor{blue}{HTML}{6CE0F1}
+% \definecolor{blue}{HTML}{6CE0F1}
 % Text colors
 \definecolor{darktext}{HTML}{414141}
 \colorlet{text}{darkgray}
@@ -152,8 +152,9 @@
 \setbool{acvSectionColorHighlight}{true}
 
 % Awesome section color
+% Change the color of first three letters of the cvsection title
 \def\@sectioncolor#1#2#3{%
-  \ifbool{acvSectionColorHighlight}{{\color{awesome}#1#2#3}}{#1#2#3}%
+  \ifbool{acvSectionColorHighlight}{{\color{awesome-skyblue}#1#2#3}}{#1#2#3}%
 }
 
 
@@ -196,7 +197,7 @@
 \newcommand*{\headersocialstyle}[1]{{\fontsize{6.8pt}{1em}\headerfont\color{text} #1}}
 \newcommand*{\headerquotestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{darktext} #1}}
 \newcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\scshape\color{lighttext} #1}}
-\newcommand*{\sectionstyle}[1]{{\fontsize{16pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
+\newcommand*{\sectionstyle}[1]{{\fontsize{20pt}{1em}\bodyfont\bfseries\color{BlueViolet}\@sectioncolor #1}}
 \newcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\scshape\textcolor{text}{#1}}}
 \newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{text}}
 
@@ -222,7 +223,7 @@
 
 % For elements of skill
 \newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\color{text} #1}}
+\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\bfseries\color{darktext} #1}}
 
 % For elements of the cover letter
 \newcommand*{\lettersectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
@@ -396,7 +397,7 @@
 \newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{5mm}
+\newcommand{\acvSectionTopSkip}{1mm}
 \newcommand{\acvSectionContentTopSkip}{4mm}
 
 
@@ -565,7 +566,7 @@
   \vspace{\acvSectionTopSkip}
   \sectionstyle{#1}
   \phantomsection
-  \color{gray}\vhrulefill{0.5pt}
+  \color{BlueViolet}\vhrulefill{0.5pt}
 }
 
 % Define a subsection for CV
@@ -596,7 +597,7 @@
 }
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
-\newcommand*{\cventry}[5]{%
+\newcommand*{\cventryproject}[5]{%
   \vspace{-0.5mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
@@ -605,6 +606,18 @@
       {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
       {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
       \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
+    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+  \end{tabular*}%
+}
+\newcommand*{\cventry}[5]{%
+  \vspace{-0.5mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+    \ifempty{#2#3}
+      {\entrypositionstyle{#2} & \entrydatestyle{#4} \\}
+      {\entrytitlestyle{#1} & \entrylocationstyle{#3} \\
+      \entrypositionstyle{#2} & \entrydatestyle{#4} \\}
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
   \end{tabular*}%
 }
